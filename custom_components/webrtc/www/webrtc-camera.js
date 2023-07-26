@@ -421,12 +421,26 @@ class WebRTCCamera extends VideoRTC {
                 video.muted = false;
             } else if (icon === 'mdi:volume-high') {
                 video.muted = true;
+            } else if (icon === 'mdi:phone-rotate-landscape') {
+                screen.orientation.lock("landscape");
+            } else if (icon === 'mdi:phone-rotate-portrait') {
+                screen.orientation.lock("portrait");
             } else if (icon === 'mdi:fullscreen') {
-                this.requestFullscreen().catch(reason => {
+                this.requestFullscreen().then(() => {
+                    orientation.icon = "mdi:phone-rotate-" + (
+                        screen.orientation.type.startsWith("portrait")
+                        ? "landscape"
+                        : "portrait"
+                    );
+                    orientation.style.display = 'block';
+                }).catch(reason => {
                     console.warn(reason);
                 }); // Chrome 71
             } else if (icon === 'mdi:fullscreen-exit') {
-                this.exitFullscreen();
+                this.exitFullscreen().then(() => {
+                    orientation.style.display = 'none';
+                });
+                screen.orientation.unlock();
             }
         });
 
