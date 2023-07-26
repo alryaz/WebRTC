@@ -390,6 +390,7 @@ class WebRTCCamera extends VideoRTC {
                 <ha-circular-progress class="spinner"></ha-circular-progress>
                 <div class="controls">
                     <ha-icon class="fullscreen" icon="mdi:fullscreen"></ha-icon>
+                    <ha-icon class="orientation" icon="mdi:phone-rotate-portrait" style="display:none"></ha-icon>
                     <span class="space"></span>
                     <ha-icon class="play" icon="mdi:play"></ha-icon>
                     <ha-icon class="volume" icon="mdi:volume-high"></ha-icon>
@@ -412,6 +413,7 @@ class WebRTCCamera extends VideoRTC {
             this.querySelector('.fullscreen').style.display = 'none';
         }
 
+        const orientation = this.querySelector('.orientation');
         const ui = this.querySelector('.ui');
         ui.addEventListener('click', ev => {
             const icon = ev.target.icon;
